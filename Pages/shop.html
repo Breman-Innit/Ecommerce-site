@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifician - Online Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/shop.css">
+   
+</head>
+<body>
+    <script></script>
+    <!-- Top Section -->
+    <div class="top-section">
+        <div class="discount-alert">🔥 SPECIAL OFFER: Get 30% OFF Today! 🔥</div>
+        <div class="call-order">
+            <p>Call to Order</p>
+            <p>+233 55 299 7254</p>
+        </div>
+    </div>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo-container">
+        <img src="../images/logo.png" alt="Logo" class="logo-img" style="height:40px; width:auto;">
+        <div class="brand-name">Artifician</div>
+    </div>
+    
+    </div>
+    
+    <div class="search-container" style="position: relative;">
+        <input type="text" class="search-bar" id="search-input" placeholder="Search products, brands and categories">
+        <div id="suggestions" style="position:absolute; top:50px; left:0; right:0; background:white; border:1px solid #ccc; z-index:1000; display:none; max-height:200px; overflow-y:auto; border-radius:5px;"></div>
+        <button class="search-button" id="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    
+    
+    <div class="nav-icons">
+        <div class="nav-item" id="account-item">
+            <i class="fas fa-user"></i>
+            <span>Account</span>
+            <i class="fas fa-chevron-down"></i>
+            
+            <div class="dropdown" id="account-dropdown">
+                <div class="dropdown-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span><a style="text-decoration: none;color: black;" href="/Pages/signup.html">Sign In</a></span>
+                </div>
+            
+               
+            </div>
+        </div>
+        
+        <div class="nav-item" id="wallet-item">
+            <i class="fas fa-wallet"></i>
+            <span>Pay</span>
+            <div class="hover-text">Proceed to Pay (<span id="cart-total-items">0</span> items)</div>
+        </div>
+        
+        <div class="nav-item" id="cart-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart</span>
+            <div class="cart-count" id="cart-count">0</div>
+        </div>
+        
+        <div class="nav-item">
+            <a>
+            <i class="fas fa-question-circle"></i>
+            <span>Help</span>
+            </a>
+        </div>
+    </div>
+</nav>
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Left Categories -->
+        <div class="categories">
+            <div class="category-item" data-section="electronics">Historical Artifacts</div>
+            <div class="category-item" data-section="fashion">Fashion</div>
+            <div class="category-item" data-section="home">Cultural Collectibles</div>
+            <div class="category-item" data-section="health">Health</div>
+            <div class="category-item" data-section="furniture">Antique Furniture & Decor</div>
+        </div>
+        
+        <!-- Hero Slider -->
+        <div class="hero-section">
+            <div class="slider">
+                <div class="slide active" style="background-image: url('/images/banner1.jpg')"></div>
+                <div class="slide" style="background-image: url('/images/banner2.jpg')"></div>
+                <div class="slide" style="background-image: url('/images/banner3.jpg')"></div>
+            </div>
+            <a href="#products" class="shop-now">Shop Now</a>
+        </div>
+        
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="quick-action">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <p>Call to Order</p>
+                    <p><a style="text-decoration: none; color: black;" class="call" href="tel:">+233 55 299 7254</a></p>
+                </div>
+            </div>
+            
+            <div class="quick-action">
+                <i class="fas fa-store"></i>
+                <a class="sell" href="signup.html"><p>Sell on Artifician Shop</p></a>
+            </div>
+            
+            <div class="quick-action">
+                <i class="fas fa-truck"></i>
+                <p>Track Your Orders</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Categories -->
+    <div class="featured-categories">
+        <div class="featured-item">
+            <img src="../images/discount.jpg" alt="Special Discount">
+            <div class="featured-label">Up to 50% OFF</div>
+        </div>
+        
+        <div class="featured-item">
+            <img src="../images/save.jpg" alt="Save Big">
+            <div class="featured-label">Save Big Now</div>
+        </div>
+        
+        <div class="featured-item">
+            <img src="../images/calltoorder.jpg" alt="Call to Order">
+            <div class="featured-label">Call to Order</div>
+        </div>
+        
+        <div class="featured-item">
+            <img src="../images/trending.jpg" alt="Trending Now">
+            <div class="featured-label">Trending Now</div>
+        </div>
+        
+        <div class="featured-item">
+            <img src="../images/sales.jpg" alt="Flash Sales">
+            <div class="featured-label">Flash Sales</div>
+        </div>
+        
+        <div class="featured-item">
+            <img src="../images/arrivals.jpg" alt="New Arrivals">
+            <div class="featured-label">New Arrivals</div>
+        </div>
+    </div>
+
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <div class="flash-sale-left">
+            <i class="fas fa-bolt flash-sale-icon"></i>
+            <h2>Flash Sale</h2>
+            <div class="timer" id="timer">23:59:59</div>
+        </div>
+  
+    </div>
+
+    <!-- Electronics Products -->
+    <div class="product-section" id="electronics">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Historical Artifacts</h2>
+        </div>
+        
+        <div class="product-grid" id="electronics-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Fashion Products -->
+    <div class="product-section" id="fashion">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Fashion</h2>
+        </div>
+        
+        <div class="product-grid" id="fashion-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Home & Kitchen Products -->
+    <div class="product-section" id="home">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Cultural Collectibles</h2>
+        </div>
+        
+        <div class="product-grid" id="home-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Beauty & Health Products -->
+    <div class="product-section" id="beauty">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Health</h2>
+        </div>
+        
+        <div class="product-grid" id="beauty-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Sports & Outdoors Products -->
+    <div class="product-section" id="sports">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Antique Furniture & Decor</h2>
+        </div>
+        
+        <div class="product-grid" id="sports-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Toys & Games Products -->
+    <div class="product-section" id="toys">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">Other Collectibles</h2>
+        </div>
+        
+        <div class="product-grid" id="toys-grid">
+            <!-- Products will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="search-results" id="search-results">
+        <div class="search-result-header">
+            <h1>Search Results for "<span id="search-query"></span>"</h1>
+            <p id="result-count"></p>
+        </div>
+        
+        <div class="product-grid" id="search-results-grid">
+            <!-- Search results will be added here by JavaScript -->
+        </div>
+        
+        <a href="index.html" class="back-to-shop" id="back-from-search">← Back to Homepage</a>
+    </div>
+
+    <!-- Quantity Modal -->
+    <div id="quantity-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Quantity</h3>
+                <span class="close" id="close-quantity-modal">&times;</span>
+            </div>
+            
+            <p id="modal-product-name">Product Name</p>
+            
+            <div class="quantity-control">
+                <button class="quantity-btn" id="decrease-qty">-</button>
+
+
+
+
+                <input type="number" id="quantity-input" class="quantity-input" value="1" min="1">
+<button class="quantity-btn" id="increase-qty">+</button>
+</div>
+
+<button class="confirm-btn" id="confirm-quantity">Add to Cart</button>
+</div>
+</div>
+
+<!-- Cart Page -->
+<div class="cart-page" id="cart-page">
+    <div class="cart-header">
+        <h1>Your Shopping Cart</h1>
+    </div>
+    
+    <table class="cart-items" id="cart-items-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="cart-items-body">
+            <!-- Cart items will be added here by JavaScript -->
+        </tbody>
+    </table>
+    
+    <div class="cart-summary">
+        <div class="summary-item">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="summary-item">
+            <span>Shipping:</span>
+            <span id="cart-shipping">$0.00</span>
+        </div>
+        <div class="summary-item">
+            <span>Tax:</span>
+            <span id="cart-tax">$0.00</span>
+        </div>
+        <div class="summary-item total">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+        </div>
+        
+        <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        
+        <div class="payment-options">
+            <h3>Payment Methods</h3>
+            <div class="payment-method">
+                <input type="radio" id="credit-card" name="payment" checked>
+                <label for="credit-card">Credit Card</label>
+            </div>
+            <div class="payment-method">
+                <input type="radio" id="paypal" name="payment">
+                <label for="paypal">PayPal</label>
+            </div>
+            <div class="payment-method">
+                <input type="radio" id="bank-transfer" name="payment">
+                <label for="bank-transfer">Bank Transfer</label>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#" class="back-to-shop" id="back-from-cart">← Continue Shopping</a>
+</div>
+
+<!-- Product Detail Modal -->
+<div id="product-detail-modal" class="product-detail-modal">
+    <div class="product-detail-content">
+        <div class="modal-header">
+            <h3>Product Details</h3>
+            <span class="close" id="close-detail-modal">&times;</span>
+        </div>
+        
+        <div class="product-detail-grid">
+            <img id="detail-image" class="product-detail-image" src="/api/placeholder/600/600" alt="Product Image">
+            
+            <div class="product-detail-info">
+                <h2 id="detail-name" class="product-detail-name">Product Name</h2>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span id="detail-rating">4.5</span>
+                </div>
+                <div id="detail-price" class="product-detail-price">$99.99</div>
+                <p id="detail-description" class="product-detail-description">
+                    This is a detailed description of the product. It includes all the features and benefits that make this product special.
+                </p>
+                
+                <div class="product-detail-action">
+                    <input type="number" id="detail-quantity" class="product-detail-quantity" value="1" min="1">
+                    <button class="add-to-cart-detail" id="add-to-cart-detail">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+        
+                
+                <div class="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="review">
+                        <div class="review-header">
+                            <span>Bernice Owusu</span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="review-date">January 15, 2023</span>
+                        </div>
+                        <p>Great product! I absolutely love it and would recommend it to anyone looking for quality.</p>
+                    </div>
+                    <div class="review">
+                        <div class="review-header">
+                            <span>Bernard Nyarko </span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="review-date">February 3, 2023</span>
+                        </div>
+                        <p>Good product for the price. Fast shipping and excellent customer service.</p>
+                    </div>
+                    <!-- In the product-detail-modal section, update the reviews section -->
+<div class="reviews">
+    <h3>Customer Reviews</h3>
+    <div id="existing-reviews">
+        <!-- Existing reviews will be shown here -->
+    </div>
+    <div class="add-review">
+        <h4>Add Your Review</h4>
+        <div id="review-form">
+            <div class="form-group">
+                <label for="review-rating">Rating:</label>
+                <select id="review-rating" class="form-input">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review-text">Your Review:</label>
+                <textarea id="review-text" class="form-input" rows="4"></textarea>
+            </div>
+            <button id="submit-review" class="add-to-cart-detail">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </div>
+        <div id="review-login-prompt" style="display: none;">
+            <p>Please <a href="../Pages/signup.html" style="color: var(--primary-color);">create an account</a> or <a href="/Pages/signup.html" style="color: var(--primary-color);">sign in</a> to leave a review.</p>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/shop.js"></script>
+</body>
+</html>

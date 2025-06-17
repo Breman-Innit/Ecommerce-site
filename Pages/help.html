@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Hub | Help Center</title>
+    <style>
+        :root {
+            --primary: #6e4a3d;
+            --secondary: #e8c4a2;
+            --accent: #ff7e5f;
+            --dark: #2a2a2a;
+            --light: #f9f4e8;
+            --glass: rgba(255, 255, 255, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            
+            color: var(--dark);
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(19, 105, 120, 0.1), rgba(19, 105, 120, 0.1)), 
+            url(/images/banner5.jpg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: #f44336;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: white;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .account-link{
+            text-decoration: none;
+            color:white;
+        }
+
+        .quick-link {
+            padding: 0.8rem 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .help-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .section {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            color: white;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #f44336;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #f44336;
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            margin-top: 0.5rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #ff9a5f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 0.3rem;
+            color: #f44336;
+        }
+
+        .contact-info p {
+            color:white;
+        }
+
+        .pro-tips {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--secondary), #f0d9b8);
+            border-radius: 20px;
+            color: var(--dark);
+        }
+
+        .pro-tips h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tips-list {
+            list-style-type: none;
+        }
+
+        .tips-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .tips-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .help-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for floating elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Help Center</h1>
+            <p class="subtitle">Find answers, get support, and connect with us</p>
+            
+            <div class="search-container floating">
+                <input type="text" id="searchInput" placeholder="How can we help you today?">
+            </div>
+            
+            <div class="quick-links">
+                <div class="quick-link"><a class="account-link" href="/Pages/signup.html">Account & Login</a></div>
+                <div class="quick-link"><a class="account-link" href="/Pages/shop.html">Events</a></div>
+                <div class="quick-link"><a class="account-link" href="/Pages/shop.html">Marketplace</a></div>
+            </div>
+        </header>
+        
+        <div class="help-sections">
+            <div class="section">
+                <h2> Getting Started</h2>
+                <div class="faq-item">
+                    <div class="faq-question">How do I create an account?</div>
+                    <div class="faq-answer">Click "Sign Up" and choose "Artisan" or "Buyer." Fill in your details and verify your email.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I set up my artisan profile?</div>
+                    <div class="faq-answer">Go to "My Profile" > "Edit Profile" and upload your bio, photos, and craft details.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I join the community forum?</div>
+                    <div class="faq-answer">Once logged in, go to "Community" > "Forum" and start engaging!</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🛠️ Artisan Features</h2>
+                <div class="faq-item">
+                    <div class="faq-question">How do I list my products/services?</div>
+                    <div class="faq-answer">Go to "My Dashboard" > "Add New Listing" and fill in details + images.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I get paid for commissions?</div>
+                    <div class="faq-answer">We support PayPal, Stripe, and direct bank transfers. Set up payments in "Account Settings."</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I host a workshop through this site?</div>
+                    <div class="faq-answer">Yes! Go to "Events" > "Host an Event" and fill in details.</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🛒 Buyer Help</h2>
+                <div class="faq-item">
+                    <div class="faq-question">How do I contact an artisan?</div>
+                    <div class="faq-answer">Visit their profile and click "Message" or use the contact form.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I attend an artisan event?</div>
+                    <div class="faq-answer">Browse "Events," select one, and click "RSVP" or "Buy Ticket."</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is there a way to request custom work?</div>
+                    <div class="faq-answer">Yes! Message the artisan directly or check if they accept commissions.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-methods">
+            <h2 style="color: #f44336; margin-bottom: 1rem;">💬 Still Need Help?</h2>
+            <div class="contact-method">
+                <div class="contact-icon">💬</div>
+                <div class="contact-info">
+                    <h3>Live Chat</h3>
+                    <p>Available Mon-Fri, 9 AM - 6 PM</p>
+                </div>
+            </div>
+            <div class="contact-method">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-info">
+                    <h3>Email Us</h3>
+                    <p>support@localartisanhub.com (Response within 24 hours)</p>
+                </div>
+            </div>
+            <div class="contact-method">
+                <div class="contact-icon">👥</div>
+                <div class="contact-info">
+                    <h3>Community Forum</h3>
+                    <p>Ask other artisans for advice</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pro-tips">
+            <h2>🔹 Pro Tips</h2>
+            <ul class="tips-list">
+                <li><strong>Bookmark this page</strong> for quick access</li>
+                <li><strong>Follow us on social media</strong> for updates & tutorials</li>
+                <li><strong>Check our video guides</strong> for visual help</li>
+                <li><strong>Use dark mode</strong> for nighttime browsing (toggle in profile)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifician - Secure Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Complete Your Purchase</h1>
+            <p>Securely checkout with your preferred payment method</p>
+        </div>
+        
+        <div class="order-summary">
+            <h2 class="summary-title"><i class="fas fa-shopping-bag"></i> Order Summary</h2>
+            
+    <div class="order-items" id="order-items">
+    <!-- Items will be populated by JavaScript with delete buttons -->
+    </div>
+            
+            <div class="order-totals">
+                <div class="total-row">
+                    <span class="total-label">Subtotal:</span>
+                    <span class="total-value" id="subtotal">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Shipping:</span>
+                    <span class="total-value" id="shipping">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Tax:</span>
+                    <span class="total-value" id="tax">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Total:</span>
+                    <span class="total-value grand-total" id="total">$0.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="payment-methods">
+            <h2 class="summary-title"><i class="fas fa-credit-card"></i> Payment Method</h2>
+            
+            <div class="payment-method active">
+                <div class="method-header">
+                    <div class="method-icon">
+                        <i class="far fa-credit-card"></i>
+                    </div>
+                    <span class="method-title">Credit/Debit Card</span>
+                    <input type="radio" name="payment-method" class="method-radio" checked>
+                </div>
+                <div class="method-details active">
+                    <div class="card-form">
+                        <div class="form-group">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cardholder Name</label>
+                            <input type="text" class="form-input" placeholder="John Doe">
+                        </div>
+                        <div class="card-row">
+                            <div class="form-group">
+                                <label class="form-label">Expiry Date</label>
+                                <input type="text" class="form-input" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-input" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <span class="method-title">PayPal</span>
+                    <input type="radio" name="payment-method" class="method-radio">
+                </div>
+                <div class="method-details">
+                    <p>You will be redirected to PayPal to complete your payment securely.</p>
+                </div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <span class="method-title">Mobile Money</span>
+                    <input type="radio" name="payment-method" class="method-radio">
+                </div>
+                <div class="method-details">
+                    <div class="form-group">
+                        <label class="form-label">Mobile Network</label>
+                        <select class="form-input">
+                            <option>MTN</option>
+                            <option>Vodafone</option>
+                            <option>AirtelTigo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number</label>
+                        <input type="text" class="form-input" placeholder="055 123 4567">
+                    </div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" id="pay-now-btn">Pay Now</button>
+            
+            <div class="security-info">
+                <i class="fas fa-lock"></i>
+                <span>Your payment is secured with 256-bit SSL encryption</span>
+            </div>
+        </div>
+        
+        <div class="payment-success" id="payment-success">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="success-title">Payment Successful!</h2>
+            <p class="success-message">
+                Thank you for your purchase. Your order has been received and is being processed. 
+                You will receive a confirmation email shortly.
+            </p>
+            <a href="shop.html" class="back-to-shop">Back to Shop</a>
+        </div>
+    </div>
+
+    <script>
+        // Get cart data from localStorage or default to empty array
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // DOM elements
+        const orderItemsEl = document.getElementById('order-items');
+        const subtotalEl = document.getElementById('subtotal');
+        const shippingEl = document.getElementById('shipping');
+        const taxEl = document.getElementById('tax');
+        const totalEl = document.getElementById('total');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const payNowBtn = document.getElementById('pay-now-btn');
+        const paymentSuccess = document.getElementById('payment-success');
+        
+        // Render order items and calculate totals
+     // Update the renderOrderSummary function
+function renderOrderSummary() {
+    orderItemsEl.innerHTML = '';
+    
+    if (cart.length === 0) {
+        orderItemsEl.innerHTML = '<p>No items in cart</p>';
+        return;
+    }
+    
+    let subtotal = 0;
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'order-item';
+        itemEl.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="item-image">
+            <div class="item-details">
+                <h3 class="item-name">${item.name}</h3>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
+                <div class="item-quantity">Quantity: ${item.quantity}</div>
+            </div>
+            <button class="remove-item" data-id="${item.id}">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        
+        orderItemsEl.appendChild(itemEl);
+    });
+    
+    // Add event listeners for delete buttons
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const itemId = this.getAttribute('data-id');
+            removeFromCart(itemId);
+        });
+    });
+    
+    const shipping = subtotal > 50 ? 0 : 10;
+    const tax = subtotal * 0.1;
+    const total = subtotal + shipping + tax;
+    
+    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    shippingEl.textContent = `$${shipping.toFixed(2)}`;
+    taxEl.textContent = `$${tax.toFixed(2)}`;
+    totalEl.textContent = `$${total.toFixed(2)}`;
+}
+
+// Add removeFromCart function
+function removeFromCart(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderOrderSummary();
+    
+    // Update cart count in shop.html if payment.html is in an iframe or similar
+    if (window.opener) {
+        window.opener.postMessage({
+            type: 'cartUpdate',
+            count: cart.reduce((total, item) => total + item.quantity, 0)
+        }, '*');
+    }
+}
+
+// Add some CSS for the delete button
+const style = document.createElement('style');
+style.textContent = `
+    .remove-item {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin-left: 15px;
+        transition: transform 0.2s;
+    }
+    .remove-item:hover {
+        transform: scale(1.2);
+    }
+`;
+document.head.appendChild(style);
+        
+        // Handle payment method selection
+        paymentMethods.forEach(method => {
+            const header = method.querySelector('.method-header');
+            const details = method.querySelector('.method-details');
+            
+            header.addEventListener('click', () => {
+                // Remove active class from all methods
+                paymentMethods.forEach(m => {
+                    m.classList.remove('active');
+                    m.querySelector('.method-details').classList.remove('active');
+                });
+                
+                // Add active class to clicked method
+                method.classList.add('active');
+                details.classList.add('active');
+            });
+        });
+        
+        // Handle pay now button
+        payNowBtn.addEventListener('click', () => {
+            // In a real app, you would process payment here
+            // For demo, we'll just show success message
+            
+            // Hide payment form and show success message
+            document.querySelector('.payment-methods').style.display = 'none';
+            document.querySelector('.order-summary').style.display = 'none';
+            paymentSuccess.style.display = 'block';
+            
+            // Clear cart
+            localStorage.removeItem('cart');
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', renderOrderSummary);
+    </script>
+</body>
+</html>
